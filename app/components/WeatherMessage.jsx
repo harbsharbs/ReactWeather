@@ -1,9 +1,12 @@
 var React = require('react');
 
-var WeatherMessage = ({temp, location}) => {
+var WeatherMessage = React.createClass({
+  render: function () {
+    var {details, location} = this.props
     return (
-      <h3>It is {temp} in {location} </h3>
+      <h3>It is {details.temp} in {location}</h3>
     )
-}
+  }
+});
 
 module.exports = WeatherMessage;

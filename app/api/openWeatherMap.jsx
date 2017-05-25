@@ -4,7 +4,7 @@ const OPEN_WEATHER_MAP_URL = 'http://api.openweathermap.org/data/2.5/weather?app
 
 
 module.exports = {
-  getTemp: function(location) {
+  getWeatherDetails: function(location) {
     var encodedLocation = encodeURIComponent(location);
     var requestUrl = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}`;
 
@@ -12,10 +12,14 @@ module.exports = {
       if (res.data.cod && res.data.message){
         throw new Error('Unable to find city');
       } else {
-        return res.data.main.temp;
+        return {
+          temp:res.data.main.temp,
+          icon:res.data.weather[0].icon,
+        };
       }
     }, function(res){
       throw new Error('Unable to find city');
     });
-  },
+},
+
   }

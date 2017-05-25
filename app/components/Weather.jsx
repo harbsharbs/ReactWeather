@@ -2,7 +2,7 @@ var React = require ('react');
 var WeatherForm = require ('WeatherForm');
 var WeatherMessage = require ('WeatherMessage');
 var openWeatherMap = require ('openWeatherMap');
-
+var WeatherIcon = require ('WeatherIcon');
 
 
 var Weather = React.createClass({
@@ -16,10 +16,10 @@ var Weather = React.createClass({
 
     this.setState({isLoading: true})
 
-    openWeatherMap.getTemp(location).then(function(temp){
-      that.setState({
+    openWeatherMap.getWeatherDetails(location).then(function(details){
+       that.setState({
         location: location,
-        temp: temp,
+        details: details,
         isLoading: false,
       })
     },
@@ -31,21 +31,28 @@ var Weather = React.createClass({
   },
 
   render: function(){
-    var{isLoading, temp, location} = this.state;
+    var{isLoading, details, location} = this.state;
 
     function renderMessage() {
       if (isLoading) {
-        return <h3>Loading...</h3>
-      } else if (temp && location){
-        return <WeatherMessage location={location} temp={temp}/>;
+        return <img src = "https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif" width={82} height={86}/>
+      } else if (details && location){
+        return <WeatherMessage location={location} details={details}/>;
       }
 ;}
-//trying to test if these states are set.
+function renderIcon() {
+  if (isLoading) {
+    return ''
+  } else if (details && location){
+    return <WeatherIcon location={location} details={details}/>;
+  }
+;}
     return(
       <div>
         <h3>Weather Component</h3>
         <WeatherForm onSearch={this.handleSearch}/>
         {renderMessage()}
+        {renderIcon()}
       </div>
 
     );

@@ -5,7 +5,7 @@ var WeatherMessage = React.createClass({
     var {details, location} = this.props
     return (
       <div>
-      <h3>It is {details.temp} in {location}</h3>
+      <h3>It is {Math.round(details.temp)} in {location}</h3>
       <h3> High: {details.high} Low: {details.low}</h3>
       </div>
     )

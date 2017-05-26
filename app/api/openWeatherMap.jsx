@@ -8,13 +8,15 @@ module.exports = {
     var encodedLocation = encodeURIComponent(location);
     var requestUrl = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}`;
 
-    return axios.get(requestUrl).then(function(res){
+    return axios.get(requestUrl).then(function(res){ debugger;
       if (res.data.cod && res.data.message){
         throw new Error('Unable to find city');
       } else {
         return {
           temp:res.data.main.temp,
           icon:res.data.weather[0].icon,
+          high:res.data.main.temp_max,
+          low:res.data.main.temp_min,
         };
       }
     }, function(res){
